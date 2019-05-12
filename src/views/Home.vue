@@ -1,9 +1,7 @@
 <template>
   <div>
-    <ret></ret>
-    <ret></ret>
-    <ret></ret>
-    <ret></ret>
+    <div></div>
+
   </div>
 </template>
 

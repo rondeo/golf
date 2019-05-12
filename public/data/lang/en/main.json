@@ -1,6 +1,18 @@
 {
   "title": "Mini Golf King Equipment",
-  "head2": "Beginner",
+  "menu": {
+    "home": "Home",
+    "equipment": "Equipment",
+    "my-equipment": "My equipment",
+    "contacts": "Contacts",
+    "about": "About",
+    "ball": "Ball",
+    "driver": "Driver",
+    "iron": "iron",
+    "sandWedge": "Sand-wedge",
+    "putter": "Putter",
+    "glove": "Glove"
+  },
   "head3": "Beginner",
   "head4": "Beginner",
   "head5": "Beginner",

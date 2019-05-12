@@ -1,10 +1,20 @@
 {
-  "title": "Снаряжкние Mini Golf King",
-  "head2": "Beginner",
+  "title": "Снаряжение Mini Golf King",
+  "menu": {
+    "home": "Главная",
+    "equipment": "Оборудование",
+    "myEquipment": "Моё оборудование",
+    "contacts": "Контакты",
+    "about": "О проекте",
+    "ball": "Мяч",
+    "driver": "Драйвер",
+    "iron": "Айрон",
+    "sandWedge": "Сенд-вэйдж",
+    "putter": "Паттер",
+    "glove": "Перчатка"
+  },
   "head3": "Beginner",
   "head4": "Beginner",
   "head5": "Beginner",
   "head6": "Beginner"
-  
-  
 }
