@@ -2,30 +2,30 @@
 v-app
   v-toolbar.primary(app dark fixed)
     v-toolbar-side-icon.hidden-md-and-up(@click="drawer = !drawer")
-    v-toolbar-title(router to="/") {{translations.title}}
+    v-toolbar-title(router to="/") {{translation.title}}
     v-spacer
 
-    v-toolbar-items(:key='i' v-for='(item, i) in menuMain')
+    v-toolbar-items(:key='i' v-for='(itemMenuMain, i) in menuMain')
       // main menu
-      v-btn(v-if="item.id !== 'equipment'" flat  :id="'top'+(i+1)"
-      :to="item.id==='home'?'/':item.id")
-        v-icon(dark v-html='item.icon')
-        .ml-2.hidden-sm-and-down {{translations.menu[item.id]}}
+      v-btn(v-if="itemMenuMain.id !== 'equipment'" flat  :id="'top'+(i+1)"
+      :to="itemMenuMain.id==='home'?'/':itemMenuMain.id")
+        v-icon(dark v-html='itemMenuMain.icon')
+        .ml-2.hidden-sm-and-down {{translation.menu[itemMenuMain.id]}}
       // inner menu for equipment
       v-menu(v-else offset-y)
         v-btn(slot='activator' flat)
-            v-icon(dark v-html='item.icon')
-            .ml-2.hidden-sm-and-down {{translations.menu[item.id]}}
+            v-icon(dark v-html='itemMenuMain.icon')
+            .ml-2.hidden-sm-and-down {{translation.menu[itemMenuMain.id]}}
             v-icon.ml-2(dark) arrow_drop_down
 
         v-list
-            v-list-tile(:key='j' v-for='(info, j) in menuEquipment' router
-            :to='info.id' exact :id="'topInner'+(j+1)")
+            v-list-tile(:key='j' v-for='(itemMenuEquipment, j) in menuEquipment' router
+            :to='itemMenuEquipment.id' exact :id="'topInner'+(j+1)")
                 v-layout.align-content-start(row nowrap  )
                   v-list-tile-action.mr-3
-                    v-icon(v-html='info.icon')
+                    v-icon(v-html='itemMenuEquipment.icon')
                   v-list-tile-content
-                    v-list-tile-title(v-text="translations.menu[info.id]")
+                    v-list-tile-title(v-text="translation.menu[itemMenuEquipment.id]")
 
     // language select
     v-toolbar-items
@@ -36,38 +36,42 @@ v-app
               v-svg(:src="language.id")
 
         v-list.grey.lighten-3
-          v-list-tile(v-for="(item, index) in languages", :key="index",
-          @click="changeLanguage(item)")
+          v-list-tile(v-for="(itemMenuMain, index) in languages", :key="index",
+          @click="changeLanguage(itemMenuMain)")
             v-list-tile-title
               v-layout.align-content-start(row nowrap  )
                 v-list-tile-action
                   .flag.mr-3
-                    v-svg(:src="item.id")
+                    v-svg(:src="itemMenuMain.id")
                 v-list-tile-content
-                  v-list-tile-title(v-text="item.name"
-                  :class="{ 'primary--text': item.id===language.id }")
+                  v-list-tile-title(v-text="itemMenuMain.name"
+                  :class="{ 'primary--text': itemMenuMain.id===language.id }")
 
   // left navigation for mobile devices
-  v-navigation-drawer.hidden-md-and-up( v-model='drawer' fixed disable-resize-watcher app)
-    v-list.pa-0(:key='i' v-for='(item, i) in menuMain')
-        v-list-tile(v-if="item.id !== 'equipment'" router :to='item.to' exact :id="'left'+(i+1)")
+  v-navigation-drawer.hidden-md-and-up(v-model='drawer' fixed disable-resize-watcher app)
+    v-list.pa-0(:key='i' v-for='(itemMenuMain, i) in menuMain')
+        v-list-tile(v-if="itemMenuMain.id !== 'equipment'" router :to='itemMenuMain.id' exact
+        :id="'left'+(i+1)")
             v-list-tile-action
-                v-icon(v-html='translations.menu[item.id]')
+                v-icon(v-html='itemMenuMain.icon')
             v-list-tile-content
-                v-list-tile-title(v-text='item.id')
-        //v-list-group(v-else  :prepend-icon='item.icon' value='true')
+                v-list-tile-title.ml-2(v-text='translation.menu[itemMenuMain.id]')
+        v-list-group(v-else  :prepend-icon='itemMenuMain.icon' value='true')
             v-list-tile(slot='activator')
-                v-list-tile-title(v-text='item.header')
+                v-list-tile-title(v-text='translation.menu[itemMenuMain.id]')
 
-            v-list-tile(:key='j' v-for='(info, j) in infos' router :to='info.to' exact
+            v-list-tile(:key='j' v-for='(itemMenuEquipment, j) in menuEquipment' router
+            :to='itemMenuEquipment.id' exact
             :id="'leftInner'+(j+1)")
                 v-list-tile-action
-                    v-icon(v-html='info.icon')
+                    v-icon.ml-2(v-html='itemMenuEquipment.icon')
                 v-list-tile-content
-                    v-list-tile-title(v-text='info.header')
+                    v-list-tile-title.ml-2(v-text='translation.menu[itemMenuEquipment.id]')
 
 
   v-content
+    v-container
+      router-view
     v-layout.align-content-start(row nowrap)
               v-flex.primary
                 .flag  primary
@@ -108,7 +112,7 @@ v-app
     //.svg-new(style="width:400px;height:200px")
       pre {{language}}
       pre {{languages}}
-    router-view
+
 </template>
 
 <script>
@@ -120,7 +124,7 @@ export default {
   components: { VSvg },
   data() {
     return {
-      translations: { menu: {} },
+      translation: { menu: {} },
       drawer: false,
       menuMain: [
         // { id: 'home', icon: 'home' },
@@ -156,15 +160,15 @@ export default {
   methods: {
     ...mapActions(['changeLanguage']),
     async translate() {
-      let phrases;
+      let translation;
       try {
-        phrases = await this.axios.get(
-          `/data/lang/${this.language.id}/main.json`,
+        translation = await this.axios.get(
+          `/data/translation/${this.language.id}/main.json`,
         );
       } catch (e) {
-        this.phrases = [];
+        this.translation = { menu: {} };
       }
-      this.translations = phrases.data;
+      this.translation = translation.data;
     },
   },
 };

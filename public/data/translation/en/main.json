@@ -3,7 +3,7 @@
   "menu": {
     "home": "Home",
     "equipment": "Equipment",
-    "my-equipment": "My equipment",
+    "myEquipment": "My equipment",
     "contacts": "Contacts",
     "about": "About",
     "ball": "Ball",
@@ -13,10 +13,5 @@
     "putter": "Putter",
     "glove": "Glove"
   },
-  "head3": "Beginner",
-  "head4": "Beginner",
-  "head5": "Beginner",
-  "head6": "Beginner"
-  
-  
+  "test": "Test"
 }

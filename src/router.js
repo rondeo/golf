@@ -9,32 +9,32 @@ export default new Router({
     {
       path: '/ball',
       name: 'ball',
-      component: () => import(/* webpackChunkName: 'ball' */ './views/Ball.vue'),
+      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
     },
     {
       path: '/driver',
       name: 'driver',
-      component: () => import(/* webpackChunkName: 'driver' */ './views/Driver.vue'),
+      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
     },
     {
       path: '/glove',
       name: 'glove',
-      component: () => import(/* webpackChunkName: 'glove' */ './views/Glove.vue'),
+      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
     },
     {
       path: '/iron',
       name: 'iron',
-      component: () => import(/* webpackChunkName: 'iron' */ './views/Iron.vue'),
+      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
     },
     {
       path: '/putter',
       name: 'putter',
-      component: () => import(/* webpackChunkName: 'putter' */ './views/Putter.vue'),
+      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
     },
     {
       path: '/sandWedge',
       name: 'sandWedge',
-      component: () => import(/* webpackChunkName: 'sandWedge' */ './views/SandWedge.vue'),
+      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
     },
 
     {
