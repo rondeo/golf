@@ -2,7 +2,7 @@
   "0": {
     "regular": {
       "id": "beginnerBall",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 2,
           "defensivePower": 1,
@@ -19,7 +19,7 @@
   "1": {
     "regular": {
       "id": "cherry",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 6,
           "defensivePower": 4,
@@ -36,7 +36,7 @@
   "2": {
     "regular": {
       "id": "shootingStar",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 11,
           "defensivePower": 6,
@@ -53,7 +53,7 @@
   "3": {
     "rare": {
       "id": "midasTouch",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 18,
           "defensivePower": 9,
@@ -70,7 +70,7 @@
   "4": {
     "epic": {
       "id": "silentHurricane",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 25,
           "defensivePower": 12,
@@ -87,7 +87,7 @@
   "5": {
     "rare": {
       "id": "aI",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 32,
           "defensivePower": 15,
@@ -102,7 +102,7 @@
     },
     "epic": {
       "id": "emeraldBeauty",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 32,
           "defensivePower": 15,
@@ -119,7 +119,7 @@
   "6": {
     "epic": {
       "id": "firestorm",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 39,
           "defensivePower": 18,
@@ -136,7 +136,7 @@
   "7": {
     "regular": {
       "id": "violet",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 42,
           "defensivePower": 21,
@@ -151,7 +151,7 @@
     },
     "rare": {
       "id": "swirl",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 32,
           "defensivePower": 15,
@@ -166,7 +166,7 @@
     },
     "epic": {
       "id": "takoyaki",
-      "level": {
+      "levels": {
         "1": {
           "strikingPower": 49,
           "defensivePower": 22,

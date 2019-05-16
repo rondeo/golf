@@ -1,7 +1,8 @@
 <template lang="pug">
 .card-wrap
-  .card.ma-3.green
+  .card.ma-3(:class="cardColor")
     pre {{cardLevel}} ---{{equipment}}
+
 
   //v-flex.green(sm12 md4) 111
   //v-flex.blue(sm12 md4) 222
@@ -15,15 +16,27 @@ export default {
   props: {
     cardLevel: {
       type: String,
-      default: () => 'default',
+      equired: true,
     },
     equipment: {
       type: Object,
-      default: () => 'default',
+      required: true,
+
     },
+  },
+  computed: {
+    cardColor() {
+      return {
+        green: this.cardLevel === 'regular',
+        blue: this.cardLevel === 'rare',
+        purple: this.cardLevel === 'epic',
+      };
+    },
+
   },
 };
 </script>
 
 <style lang="less" scoped>
+
 </style>

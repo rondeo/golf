@@ -21,6 +21,7 @@
 </template>
 
 <script>
+
 import { mapGetters } from 'vuex'; // , mapActions
 import EquipmentCard from './EquipmentCard.vue'; // , mapActions
 
@@ -71,11 +72,21 @@ export default {
       this.translation = translation.data;
     },
     tmpItemGenerator(data) {
-      this._.forEach(data, (item, stage) => {
-        // console.log(777, item, stage);
+      this._.forEach(data, (equipment, stage) => {
+        this._.forEach(['regular', 'rare', 'epic'], (cardLevel) => {
+          if (typeof equipment[cardLevel] !== 'undefined') {
+            for (let i = 2; i <= 4; i += 1) {
+              // eslint-disable-next-line no-param-reassign
+              equipment[cardLevel].levels[i] = {};
+              this._.forEach(equipment[cardLevel].levels[i - 1], (val, prop) => {
+                // eslint-disable-next-line no-param-reassign
+                equipment[cardLevel].levels[i][prop] = val + this._.random(0, Number(stage) + i);
+              });
+            }
+          }
+        });
       });
       // console.log(111, data, _.random(20));
-
       return data;
     },
   },
