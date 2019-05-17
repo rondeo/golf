@@ -1,9 +1,16 @@
 <template lang="pug">
 .card-wrap
   .card.ma-3(:class="cardColor")
-    pre {{cardLevel}} ---{{equipment}}
+    //pre {{cardLevel}} ---{{equipment}}
+    table
+        tboby()
+          tr(v-for="(val,prop) in equipment.levels[1]" v-if="prop!=='auxillary'")
+            td {{prop}}
+            td(v-for="(item,level) in equipment.levels") {{item[prop]}}
 
-
+          //tr(v-for="(val,prop) in equipment.levels[1]")
+            td {{prop}}----{{val}}
+            td(v-for="(item,level) in equipment.levels[1]")
   //v-flex.green(sm12 md4) 111
   //v-flex.blue(sm12 md4) 222
   //v-flex.purple(sm12 md4) 333

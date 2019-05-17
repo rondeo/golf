@@ -1,5 +1,16 @@
 {
   "title": "Ball",
+
+  "strikingPower":   "strikingPower",
+  "defensivePower": "defensivePower",
+  "horizontalSpin": "horizontalSpin",
+  "verticalSpin": "verticalSpin",
+  "ironWill": "ironWill",
+  "bombproof": "bombproof",
+  "resistWind": "resistWind",
+  "morePower": "morePower",
+
+
   "beginnerBall": "Beginner ball",
   "cherry": "Cherry",
   "shootingStar": "Shooting star",

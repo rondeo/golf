@@ -2,16 +2,19 @@
   "0": {
     "regular": {
       "id": "beginnerBall",
+      "auxillary": [],
       "levels": {
         "1": {
           "strikingPower": 2,
           "defensivePower": 1,
-          "horizontalSpin": 0,
-          "verticalSpin": 0,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 0,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 0,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 0,
+            "morePower": 0
+          }
         }
       }
     }
@@ -19,16 +22,19 @@
   "1": {
     "regular": {
       "id": "cherry",
+      "auxillary": ["resistWind"],
       "levels": {
         "1": {
           "strikingPower": 6,
           "defensivePower": 4,
-          "horizontalSpin": 0,
-          "verticalSpin": 0,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 1,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 0,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 1,
+            "morePower": 0
+          }
         }
       }
     }
@@ -36,16 +42,19 @@
   "2": {
     "regular": {
       "id": "shootingStar",
+      "auxillary": ["bombproof"],
       "levels": {
         "1": {
           "strikingPower": 11,
           "defensivePower": 6,
-          "horizontalSpin": 0,
-          "verticalSpin": 0,
-          "ironWill": 0,
-          "bombproof": 1,
-          "resistWind": 0,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 0,
+            "ironWill": 0,
+            "bombproof": 1,
+            "resistWind": 0,
+            "morePower": 0
+          }
         }
       }
     }
@@ -53,16 +62,19 @@
   "3": {
     "rare": {
       "id": "midasTouch",
+      "auxillary": ["horizontalSpin", "bombproof"],
       "levels": {
         "1": {
           "strikingPower": 18,
           "defensivePower": 9,
-          "horizontalSpin": 5,
-          "verticalSpin": 0,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 0,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 5,
+            "verticalSpin": 0,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 0,
+            "morePower": 0
+          }
         }
       }
     }
@@ -70,16 +82,19 @@
   "4": {
     "epic": {
       "id": "silentHurricane",
+      "auxillary": ["verticalSpin", "bombproof", "horizontalSpin"],
       "levels": {
         "1": {
           "strikingPower": 25,
           "defensivePower": 12,
-          "horizontalSpin": 0,
-          "verticalSpin": 7,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 0,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 7,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 0,
+            "morePower": 0
+          }
         }
       }
     }
@@ -87,31 +102,37 @@
   "5": {
     "rare": {
       "id": "aI",
+      "auxillary": ["resistWind", "ironWill"],
       "levels": {
         "1": {
           "strikingPower": 32,
           "defensivePower": 15,
-          "horizontalSpin": 0,
-          "verticalSpin": 0,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 5,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 0,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 5,
+            "morePower": 0
+          }
         }
       }
     },
     "epic": {
       "id": "emeraldBeauty",
+      "auxillary": ["ironWill", "morePower"],
       "levels": {
         "1": {
           "strikingPower": 32,
           "defensivePower": 15,
-          "horizontalSpin": 0,
-          "verticalSpin": 0,
-          "ironWill": 1,
-          "bombproof": 0,
-          "resistWind": 0,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 0,
+            "ironWill": 1,
+            "bombproof": 0,
+            "resistWind": 0,
+            "morePower": 0
+          }
         }
       }
     }
@@ -119,16 +140,19 @@
   "6": {
     "epic": {
       "id": "firestorm",
+      "auxillary": ["resistWind", "horizontalSpin", "morePower"],
       "levels": {
         "1": {
           "strikingPower": 39,
           "defensivePower": 18,
-          "horizontalSpin": 0,
-          "verticalSpin": 0,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 1,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 0,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 1,
+            "morePower": 0
+          }
         }
       }
     }
@@ -136,46 +160,55 @@
   "7": {
     "regular": {
       "id": "violet",
+      "auxillary": ["verticalSpin"],
       "levels": {
         "1": {
           "strikingPower": 42,
           "defensivePower": 21,
-          "horizontalSpin": 0,
-          "verticalSpin": 13,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 0,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 13,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 0,
+            "morePower": 0
+          }
         }
       }
     },
     "rare": {
       "id": "swirl",
+      "auxillary": ["verticalSpin", "horizontalSpin"],
       "levels": {
         "1": {
           "strikingPower": 32,
           "defensivePower": 15,
-          "horizontalSpin": 0,
-          "verticalSpin": 8,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 0,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 8,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 0,
+            "morePower": 0
+          }
         }
       }
     },
     "epic": {
       "id": "takoyaki",
+      "auxillary": ["resistWind", "horizontalSpin", "verticalSpin"],
       "levels": {
         "1": {
           "strikingPower": 49,
           "defensivePower": 22,
-          "horizontalSpin": 0,
-          "verticalSpin": 0,
-          "ironWill": 0,
-          "bombproof": 0,
-          "resistWind": 7,
-          "morePower": 0
+          "auxillary": {
+            "horizontalSpin": 0,
+            "verticalSpin": 0,
+            "ironWill": 0,
+            "bombproof": 0,
+            "resistWind": 7,
+            "morePower": 0
+          }
         }
       }
     }

@@ -1,5 +1,15 @@
 {
   "title": "Мяч",
+
+  "strikingPower":   "Сила удара",
+  "defensivePower": "Сила защиты",
+  "horizontalSpin": "Горизонтальное вращение",
+  "verticalSpin": "Вертикальное вращение",
+  "ironWill": "Железная воля",
+  "bombproof": "Защита от бомб",
+  "resistWind": "Сопротивление ветру",
+  "morePower": "Прилив сил",
+
   "beginnerBall": "Мяч новичка",
   "cherry": "Вишня",
   "shootingStar": "Комета",

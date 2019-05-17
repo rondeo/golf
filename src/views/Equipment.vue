@@ -75,7 +75,8 @@ export default {
       this._.forEach(data, (equipment, stage) => {
         this._.forEach(['regular', 'rare', 'epic'], (cardLevel) => {
           if (typeof equipment[cardLevel] !== 'undefined') {
-            for (let i = 2; i <= 4; i += 1) {
+            const maxLevel = 10;
+            for (let i = 2; i <= maxLevel; i += 1) {
               // eslint-disable-next-line no-param-reassign
               equipment[cardLevel].levels[i] = {};
               this._.forEach(equipment[cardLevel].levels[i - 1], (val, prop) => {
