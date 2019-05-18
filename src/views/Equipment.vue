@@ -1,23 +1,28 @@
 <template lang="pug">
 .equipment
   h1 {{translation.title}}
-  v-layout(v-for="(equipment,level) in equipment" wrap )
+  v-layout(v-for="(equipment,stage) in equipment" wrap )
     v-flex(v-for="cardLevel in ['regular','rare','epic']" sm12 md4 )
+      //pre(v-if="typeof equipment[cardLevel] !=='undefined'") {{equipment[cardLevel].items}}
       equipment-card(v-if="typeof equipment[cardLevel] !=='undefined'"
-      :cardLevel="cardLevel" :equipment="equipment[cardLevel]" )
+      :cardLevel="cardLevel"
+      :stage="stage"
+      :id="equipment[cardLevel].id"
+      :headers="equipment[cardLevel].headers"
+      :items="equipment[cardLevel].items")
 
 
     //v-flex.green(sm12 md4) 111
     //v-flex.blue(sm12 md4) 222
     //v-flex.purple(sm12 md4) 333
 
-  //.pre
-    pre {{language}}
-    pre {{translation}}
-    pre {{equipment}}
-    pre {{$route.query}}
-    pre {{$route.hash}}
-    pre {{$route.hash}}
+  .pre
+    //pre {{language}}
+    //pre {{translation}}
+    //pre {{equipment}}
+    //pre {{$route.query}}
+    //pre {{$route.hash}}
+    //pre {{$route.hash}}
 </template>
 
 <script>
@@ -57,7 +62,8 @@ export default {
       } catch (e) {
         this.equipment = {};
       }
-      this.equipment = this.tmpItemGenerator(equipment.data);
+      // equipment.data = this.tmpItemGenerator(equipment.data);// temporary
+      this.equipment = this.transformEquipment(equipment.data);
     },
     async translate() {
       let translation;
@@ -71,21 +77,82 @@ export default {
 
       this.translation = translation.data;
     },
-    tmpItemGenerator(data) {
-      this._.forEach(data, (equipment, stage) => {
+    /** generate data for table */
+    transformEquipment(data) {
+      this._.forEach(data, (equipment) => {
         this._.forEach(['regular', 'rare', 'epic'], (cardLevel) => {
           if (typeof equipment[cardLevel] !== 'undefined') {
-            const maxLevel = 10;
-            for (let i = 2; i <= maxLevel; i += 1) {
-              // eslint-disable-next-line no-param-reassign
-              equipment[cardLevel].levels[i] = {};
-              this._.forEach(equipment[cardLevel].levels[i - 1], (val, prop) => {
-                // eslint-disable-next-line no-param-reassign
-                equipment[cardLevel].levels[i][prop] = val + this._.random(0, Number(stage) + i);
+            // add table heders
+            // eslint-disable-next-line no-param-reassign
+            equipment[cardLevel].headers = [{
+              text: 'paramName',
+              align: 'left',
+              sortable: false,
+              value: 'paramName',
+            }];
+            const firstPropKey = Object.keys(equipment[cardLevel].main)[0];
+            const firstProp = equipment[cardLevel].main[firstPropKey];
+            this._.forEach(firstProp, (value, key) => {
+              equipment[cardLevel].headers.push({
+                text: key,
+                align: 'left',
+                sortable: false,
+                value: key,
               });
-            }
+            });
+
+            // add table itims
+            // eslint-disable-next-line no-param-reassign
+            equipment[cardLevel].items = [];
+            this._.forEach(equipment[cardLevel].main, (values, property) => {
+              const item = { paramName: property };
+              this._.forEach(values, (value, id) => {
+                item[id] = value;
+              });
+              equipment[cardLevel].items.push(item);
+            });
+
+            // console.log(111, firstProp, stage, cardLevel, equipment[cardLevel].id,
+            // equipment[cardLevel].main, equipment[cardLevel].auxillary);
+            /* const maxLevel = 10;
+
+              this._.forEach(equipment[cardLevel].main, (value, property) => {
+                for (let i = 1; i < maxLevel; i += 1) {
+                    value.push(value[i-1]+ this._.random(0, Number(stage) + i));
+                }
+              });
+             this._.forEach(equipment[cardLevel].auxillary, (value, property) => {
+                for (let i = 1; i < maxLevel; i += 1) {
+                    value.push(value[i-1]+ this._.random(0, Number(stage) + i));
+                }
+              }); */
           }
         });
+      });
+      // console.log(111, data, _.random(20));
+
+      return data;
+    },
+    tmpItemGenerator(data) {
+      this._.forEach(data, (equipment, stage) => {
+        if (stage > 0) {
+          this._.forEach(['regular', 'rare', 'epic'], (cardLevel) => {
+            if (typeof equipment[cardLevel] !== 'undefined') {
+              const maxLevel = 10;
+
+              this._.forEach(equipment[cardLevel].main, (value) => {
+                for (let i = 1; i < maxLevel; i += 1) {
+                  value.push(value[i - 1] + this._.random(0, Number(stage) + i));
+                }
+              });
+              this._.forEach(equipment[cardLevel].auxillary, (value) => {
+                for (let i = 1; i < maxLevel; i += 1) {
+                  value.push(value[i - 1] + this._.random(0, Number(stage) + i));
+                }
+              });
+            }
+          });
+        }
       });
       // console.log(111, data, _.random(20));
       return data;

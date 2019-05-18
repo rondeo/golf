@@ -1,8 +1,22 @@
 <template lang="pug">
 .card-wrap
   .card.ma-3(:class="cardColor")
-    //pre {{cardLevel}} ---{{equipment}}
-    table
+    v-data-table.elevation-1(:headers='headers', :items='items')
+      template(v-slot:items='props')
+        //td( v-text="props.item.paramName")
+
+        td(v-for="val in ['paramName',0,1,2,3,4,5,6,7,8,9]" v-text="props.item[val]"
+        v-if="typeof props.item[val] !== 'undefined'")
+
+        //td.text-xs-right {{ props.item.defensivePower }}
+
+
+  //pre {{headers}}
+
+  //pre {{items}}
+
+
+    //table
         tboby()
           tr(v-for="(val,prop) in equipment.levels[1]" v-if="prop!=='auxillary'")
             td {{prop}}
@@ -21,16 +35,31 @@
 export default {
   name: 'EquipmentCard',
   props: {
+    id: {
+      type: String,
+      equired: true,
+    },
     cardLevel: {
       type: String,
       equired: true,
     },
-    equipment: {
-      type: Object,
-      required: true,
-
+    headers: {
+      type: Array,
+      equired: true,
     },
+    items: {
+      type: Array,
+      required: true,
+    },
+
+
   },
+  data() {
+    return {
+
+    };
+  },
+
   computed: {
     cardColor() {
       return {
@@ -42,6 +71,8 @@ export default {
 
   },
 };
+
+
 </script>
 
 <style lang="less" scoped>
