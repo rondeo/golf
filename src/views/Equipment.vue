@@ -1,15 +1,17 @@
 <template lang="pug">
 .equipment
   h1 {{translation.title}}
-  v-layout(v-for="(equipment,stage) in equipment" wrap )
+  v-layout(v-for="(equipment,stage) in equipment" wrap v-if="stage>0")
     v-flex(v-for="cardLevel in ['regular','rare','epic']" sm12 md4 )
       //pre(v-if="typeof equipment[cardLevel] !=='undefined'") {{equipment[cardLevel].items}}
-      equipment-card(v-if="typeof equipment[cardLevel] !=='undefined'"
-      :cardLevel="cardLevel"
-      :stage="stage"
-      :id="equipment[cardLevel].id"
-      :headers="equipment[cardLevel].headers"
-      :items="equipment[cardLevel].items")
+      equipment-card(
+        v-if="typeof equipment[cardLevel] !=='undefined' && typeof translation !=='undefined'"
+        :cardLevel="cardLevel"
+        :stage="stage"
+        :id="equipment[cardLevel].id"
+        :headers="equipment[cardLevel].headers"
+        :items="equipment[cardLevel].items"
+        :translation="translation")
 
 
     //v-flex.green(sm12 md4) 111
@@ -86,7 +88,7 @@ export default {
             // eslint-disable-next-line no-param-reassign
             equipment[cardLevel].headers = [{
               text: 'paramName',
-              align: 'left',
+              // : 'right',
               sortable: false,
               value: 'paramName',
             }];
@@ -94,7 +96,7 @@ export default {
             const firstProp = equipment[cardLevel].main[firstPropKey];
             this._.forEach(firstProp, (value, key) => {
               equipment[cardLevel].headers.push({
-                text: key,
+                text: key + 1,
                 align: 'left',
                 sortable: false,
                 value: key,
@@ -109,9 +111,37 @@ export default {
               this._.forEach(values, (value, id) => {
                 item[id] = value;
               });
+            });
+            const pseudoHeader = { paramName: 'paramName' };
+            for (let i = 0; i <= 9; i += 1) {
+              pseudoHeader[i] = i + 1;
+            }
+            /** 0:18
+1:21
+2:25
+3:27
+4:30
+5:37
+6:45
+7:50
+8:56
+9:66
+paramName:"strikingPower" */
+            equipment[cardLevel].items.push(pseudoHeader);
+            this._.forEach(equipment[cardLevel].main, (values, property) => {
+              const item = { paramName: property };
+              this._.forEach(values, (value, id) => {
+                item[id] = value;
+              });
               equipment[cardLevel].items.push(item);
             });
-
+            this._.forEach(equipment[cardLevel].auxillary, (values, property) => {
+              const item = { paramName: property };
+              this._.forEach(values, (value, id) => {
+                item[id] = value;
+              });
+              equipment[cardLevel].items.push(item);
+            });
             // console.log(111, firstProp, stage, cardLevel, equipment[cardLevel].id,
             // equipment[cardLevel].main, equipment[cardLevel].auxillary);
             /* const maxLevel = 10;

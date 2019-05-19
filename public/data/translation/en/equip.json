@@ -1,14 +1,15 @@
 {
   "title": "Ball",
+  "paramName":   "Parameter",
 
-  "strikingPower":   "strikingPower",
-  "defensivePower": "defensivePower",
-  "horizontalSpin": "horizontalSpin",
-  "verticalSpin": "verticalSpin",
-  "ironWill": "ironWill",
-  "bombproof": "bombproof",
-  "resistWind": "resistWind",
-  "morePower": "morePower",
+  "strikingPower":   "Striking power",
+  "defensivePower": "Defensive power",
+  "horizontalSpin": "Horizontal spin",
+  "verticalSpin": "Vertical spin",
+  "ironWill": "Iron will",
+  "bombproof": "Bombproof",
+  "resistWind": "Resist wind",
+  "morePower": "More power",
 
 
   "beginnerBall": "Beginner ball",
