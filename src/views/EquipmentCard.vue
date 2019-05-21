@@ -1,10 +1,19 @@
 <template lang="pug">
-.card-wrap.ma-2
+.card-wrap.ma-2 {{cardLevel}} --
   v-layout(nowrap)
-    v-flex.icon(:class="cardColor")
+    v-flex.icon(:class="[cardLevel]")
       .img image here
     v-flex.table
-      v-data-table(:headers='headers', :items='items' hide-actions hide-headers dark)
+      table(:class="[cardLevel]")
+        thead
+          tr
+            th.white--text(v-for="header in headers"  
+            v-text="header.value!=='paramName' ? header.text: translation[header.text]") 
+        tbody.blue-grey--text.text--lighten-5
+          tr(v-for="item in items")
+            td(v-for="header in headers" 
+            v-text="header.value!=='paramName' ? item[header.value]: translation[item[header.value]]")
+      //v-data-table(:headers='headers', :items='items' hide-actions hide-headers dark)
         template(v-slot:items='props')
           //td( v-text="props.item.paramName")
           td.text-no-wrap(v-text="translation[props.item['paramName']]" :class="cardColor")
@@ -56,13 +65,13 @@ export default {
   },
 
   computed: {
-    cardColor() {
+   /*  cardColor() {
       return {
-        green: this.cardLevel === 'regular',
-        blue: this.cardLevel === 'rare',
-        purple: this.cardLevel === 'epic',
+        regular: this.cardLevel === 'regular',
+        rare: this.cardLevel === 'rare',
+        epic: this.cardLevel === 'epic',
       };
-    },
+    }, */
   },
 
   /* watch: {
@@ -78,30 +87,36 @@ export default {
 
 <style lang="less">
 .card-wrap{
-.icon{
-  flex:0 0 80px;
-}
-.table{
-flex:0 0 200px;
-}
-.empty{
-   flex:1 0 0;
-}
-table{
-   tr:first-child td{
-      font-weight: bold !important;
-      font-size: 15px !important;
-    }
-
-   td{
-    width: 32px;
-    min-width: 32px;
-    height: 32px !important;
-    padding: 5px !important;
-    text-align: right  !important;
-
+  .icon{
+    flex:0 0 80px;
   }
-}
+  .table{
+  flex:0 0 200px;
+  }
+  .empty{
+    flex:1 0 0;
+  }
+  table{
+     /* td:first-child, th:first-child{
+      font-weight: bold;
+      font-size: 15px;
+    } */
+    td{
+      border-bottom: 1px 
+    }
+    td,th{
+      width: 28px;
+      min-width: 28px;
+      height: 28px;
+      padding: 2px;
+      text-align: right ;
+      &:first-child{
+       width: 190px;
+      min-width: 190px;
+      }
+
+    }
+  }
 }
 
 </style>

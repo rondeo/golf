@@ -89,7 +89,7 @@ export default {
             equipment[cardLevel].headers = [{
               text: 'paramName',
               // : 'right',
-              sortable: false,
+              //sortable: false,
               value: 'paramName',
             }];
             const firstPropKey = Object.keys(equipment[cardLevel].main)[0];
@@ -97,11 +97,11 @@ export default {
             this._.forEach(firstProp, (value, key) => {
               equipment[cardLevel].headers.push({
                 text: key + 1,
-                align: 'left',
-                sortable: false,
+                //align: 'left',
+                //sortable: false,
                 value: key,
               });
-            });
+            }); 
 
             // add table itims
             // eslint-disable-next-line no-param-reassign
@@ -112,22 +112,12 @@ export default {
                 item[id] = value;
               });
             });
-            const pseudoHeader = { paramName: 'paramName' };
+            /* const pseudoHeader = { paramName: 'paramName' };
             for (let i = 0; i <= 9; i += 1) {
               pseudoHeader[i] = i + 1;
-            }
-            /** 0:18
-1:21
-2:25
-3:27
-4:30
-5:37
-6:45
-7:50
-8:56
-9:66
-paramName:"strikingPower" */
-            equipment[cardLevel].items.push(pseudoHeader);
+            }    
+            equipment[cardLevel].items.push(pseudoHeader); */
+
             this._.forEach(equipment[cardLevel].main, (values, property) => {
               const item = { paramName: property };
               this._.forEach(values, (value, id) => {

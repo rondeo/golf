@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import 'vuetify/src/stylus/app.styl';
+import colors from 'vuetify/es5/util/colors';
 
 Vue.use(Vuetify, {
   iconfont: 'md',
@@ -12,5 +13,8 @@ Vue.use(Vuetify, {
     info: '#2196F3',
     success: '#4CAF50',
     warning: '#FFC107',
+    regular: colors.lightGreen.darken1,
+    rare: colors.lightBlue.darken1,
+    epic: colors.purple.lighten1,
   },
 });
