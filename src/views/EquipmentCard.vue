@@ -1,18 +1,40 @@
 <template lang="pug">
-.card-wrap.ma-2 {{cardLevel}} --
+.card-wrap.ma-2 {{imagePosition}} --
   v-layout(nowrap)
-    v-flex.icon(:class="[cardLevel]")
+    //v-flex.icon(:class="[cardLevel]")
       .img image here
     v-flex.table
       table(:class="[cardLevel]")
         thead
           tr
-            th.white--text(v-for="header in headers"  
-            v-text="header.value!=='paramName' ? header.text: translation[header.text]") 
+            th.white--text(
+              :rowspan="3"
+            )
+              .img(
+                :style="imgStyle"
+
+              )
+            th.white--text(
+              :colspan="headers.length-1"
+              v-text=" translation[id]"
+            )
+          tr
+            th.white--text(
+              :colspan="headers.length-1"
+              v-text="`${translation.stage} ${stage} ${translation[cardLevel]} `"
+            )
+          tr
+            th.white--text(
+              v-for="header in headers"
+              v-if="header.value!=='paramName'"
+              v-text="header.value!=='paramName' ? header.text: translation[header.text]"
+            )
         tbody.blue-grey--text.text--lighten-5
           tr(v-for="item in items")
-            td(v-for="header in headers" 
-            v-text="header.value!=='paramName' ? item[header.value]: translation[item[header.value]]")
+            td(
+              v-for="header in headers"
+              v-text="header.value!=='paramName'? item[header.value]: ''"
+            )
       //v-data-table(:headers='headers', :items='items' hide-actions hide-headers dark)
         template(v-slot:items='props')
           //td( v-text="props.item.paramName")
@@ -22,8 +44,6 @@
           //td.text-xs-right {{ props.item.defensivePower }}
     v-flex.empty
 
-  //pre {{headers}}
-  //pre {{items}}
 
 </template>
 
@@ -52,8 +72,15 @@ export default {
       type: Array,
       required: true,
     },
-
     translation: {
+      type: Object,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    imagePosition: {
       type: Object,
       required: true,
     },
@@ -65,7 +92,15 @@ export default {
   },
 
   computed: {
-   /*  cardColor() {
+    imgStyle() {
+      return {
+        backgroundImage: `url(${this.image})`,
+        backgroundPositionX: `${-this.imagePosition.x}px`,
+        backgroundPositionY: `${-this.imagePosition.y}px`,
+      };
+    },
+
+    /*  cardColor() {
       return {
         regular: this.cardLevel === 'regular',
         rare: this.cardLevel === 'rare',
@@ -86,6 +121,7 @@ export default {
 </script>
 
 <style lang="less">
+  @imgSize: 104px;
 .card-wrap{
   .icon{
     flex:0 0 80px;
@@ -97,26 +133,41 @@ export default {
     flex:1 0 0;
   }
   table{
-     /* td:first-child, th:first-child{
-      font-weight: bold;
-      font-size: 15px;
-    } */
     td{
-      border-bottom: 1px 
+      border-bottom: 1px;
+      text-align: right ;
     }
     td,th{
       width: 28px;
       min-width: 28px;
       height: 28px;
       padding: 2px;
-      text-align: right ;
-      &:first-child{
-       width: 190px;
-      min-width: 190px;
-      }
+    }
 
+    tr{
+      &:nth-child(1){
+        th{
+          text-align: center ;
+          font-size: 24px;
+          &:nth-child(1){
+            width: 190px;
+            min-width: 190px;
+          }
+        }
+      }
+      &:nth-child(3){
+        th{
+          text-align: right ;
+
+        }
+      }
     }
   }
+  .img{
+    width: @imgSize;
+    height: @imgSize;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+  }
 }
-
 </style>

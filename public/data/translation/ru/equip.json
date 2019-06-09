@@ -1,6 +1,11 @@
 {
   "title": "Мяч",
   "paramName":   "Параметр",
+  "stage":   "Этап",
+  "level":   "Уровень",
+  "regular":   "Стандартный",
+  "rare":   "Редкий",
+  "epic":   "Эпический",
 
   "strikingPower":   "Сила удара",
   "defensivePower": "Сила защиты",

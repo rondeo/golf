@@ -1,6 +1,12 @@
 {
   "title": "Ball",
-  "paramName":   "Parameter",
+  "paramName":   "Parameter",  
+  "stage":   "Stage",
+  "level":   "Level",
+  "regular":   "Regular",
+  "rare":   "Rare",
+  "epic":   "Epic",
+
 
   "strikingPower":   "Striking power",
   "defensivePower": "Defensive power",

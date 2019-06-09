@@ -1,8 +1,15 @@
 <template lang="pug">
 .equipment
   h1 {{translation.title}}
-  v-layout(v-for="(equipment,stage) in equipment" wrap v-if="stage>0")
-    v-flex(v-for="cardLevel in ['regular','rare','epic']" sm12 md4 )
+  v-layout(
+    v-for="(equipment,stage) in equipment"
+    v-if="stage>0"
+    wrap
+  )
+    v-flex(
+      v-for="cardLevel in ['regular','rare','epic']"
+      sm12 md4
+    )
       //pre(v-if="typeof equipment[cardLevel] !=='undefined'") {{equipment[cardLevel].items}}
       equipment-card(
         v-if="typeof equipment[cardLevel] !=='undefined' && typeof translation !=='undefined'"
@@ -11,7 +18,10 @@
         :id="equipment[cardLevel].id"
         :headers="equipment[cardLevel].headers"
         :items="equipment[cardLevel].items"
-        :translation="translation")
+        :translation="translation"
+        :image="image"
+        :imagePosition="equipment[cardLevel].img"
+      )
 
 
     //v-flex.green(sm12 md4) 111
@@ -47,6 +57,9 @@ export default {
   },
   computed: {
     ...mapGetters(['language']),
+    image() {
+      return `/img/${this.$route.name}.png`;
+    },
   },
   watch: {
     language() {
@@ -89,19 +102,21 @@ export default {
             equipment[cardLevel].headers = [{
               text: 'paramName',
               // : 'right',
-              //sortable: false,
+              // sortable: false,
               value: 'paramName',
             }];
+
+
             const firstPropKey = Object.keys(equipment[cardLevel].main)[0];
             const firstProp = equipment[cardLevel].main[firstPropKey];
             this._.forEach(firstProp, (value, key) => {
               equipment[cardLevel].headers.push({
                 text: key + 1,
-                //align: 'left',
-                //sortable: false,
+                // align: 'left',
+                // sortable: false,
                 value: key,
               });
-            }); 
+            });
 
             // add table itims
             // eslint-disable-next-line no-param-reassign
@@ -115,7 +130,7 @@ export default {
             /* const pseudoHeader = { paramName: 'paramName' };
             for (let i = 0; i <= 9; i += 1) {
               pseudoHeader[i] = i + 1;
-            }    
+            }
             equipment[cardLevel].items.push(pseudoHeader); */
 
             this._.forEach(equipment[cardLevel].main, (values, property) => {
@@ -182,4 +197,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 </style>
