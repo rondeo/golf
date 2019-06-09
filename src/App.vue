@@ -70,8 +70,8 @@ v-app
 
 
   v-content
-    v-container
-      router-view
+    //v-container
+    router-view
     v-layout.align-content-start(row nowrap)
               v-flex.primary
                 .flag  primary

@@ -1,27 +1,28 @@
 <template lang="pug">
 .equipment
   h1 {{translation.title}}
-  v-layout(
+  v-layout.justify-space-around(
     v-for="(equipment,stage) in equipment"
     v-if="stage>0"
-    wrap
+    wrap 
   )
-    v-flex(
+    template(
       v-for="cardLevel in ['regular','rare','epic']"
-      sm12 md4
     )
-      //pre(v-if="typeof equipment[cardLevel] !=='undefined'") {{equipment[cardLevel].items}}
-      equipment-card(
-        v-if="typeof equipment[cardLevel] !=='undefined' && typeof translation !=='undefined'"
-        :cardLevel="cardLevel"
-        :stage="stage"
-        :id="equipment[cardLevel].id"
-        :headers="equipment[cardLevel].headers"
-        :items="equipment[cardLevel].items"
-        :translation="translation"
-        :image="image"
-        :imagePosition="equipment[cardLevel].img"
-      )
+      v-flex.no-grow(
+          v-if="typeof equipment[cardLevel] !=='undefined' && typeof translation !=='undefined'"
+        )       
+        equipment-card(        
+          :cardLevel="cardLevel"
+          :stage="stage"
+          :id="equipment[cardLevel].id"
+          :headers="equipment[cardLevel].headers"
+          :items="equipment[cardLevel].items"
+          :translation="translation"
+          :image="image"
+          :imagePosition="equipment[cardLevel].img"
+        )
+      v-flex.no-grow(          v-else        )   
 
 
     //v-flex.green(sm12 md4) 111
@@ -197,5 +198,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.no-grow{
+  //flex: 0 0 auto;
+  // flex-basis: 452px;
+}
 </style>
