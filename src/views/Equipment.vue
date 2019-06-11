@@ -1,205 +1,71 @@
 <template lang="pug">
-.equipment
-  h1 {{translation.title}}
-  v-layout.justify-space-around(
+.equipment  
+  v-container
+    h1(v-if="typeof translation !== 'undefined'") Карточки оборудования - {{translation[$route.params.id]}}
+        v-btn.ml-5(color="primary" :to="{name:'equipmentSorted',params:{id:$route.params.id}}") Сводная таблица - {{translation[$route.params.id]}}
+  v-layout.mt-1.pa-2.blue-grey.lighten-5(
     v-for="(equipment,stage) in equipment"
     v-if="stage>0"
-    wrap 
   )
-    template(
-      v-for="cardLevel in ['regular','rare','epic']"
-    )
-      v-flex.no-grow(
-          v-if="typeof equipment[cardLevel] !=='undefined' && typeof translation !=='undefined'"
-        )       
-        equipment-card(        
-          :cardLevel="cardLevel"
-          :stage="stage"
-          :id="equipment[cardLevel].id"
-          :headers="equipment[cardLevel].headers"
-          :items="equipment[cardLevel].items"
-          :translation="translation"
-          :image="image"
-          :imagePosition="equipment[cardLevel].img"
+    div
+      v-layout.stage.primary.align-center.elevation-3.ma-1.pa-3
+        .white--text.font-weight-bold.display-4(              
+              v-text="stage"
+            ) 
+    v-flex
+      v-layout.justify-space-around.align-center(
+    
+          wrap
         )
-      v-flex.no-grow(          v-else        )   
+          
+          template(
+            v-for="cardLevel in ['regular','rare','epic']"
+          )
+            div(
+                v-if="typeof equipment[cardLevel] !=='undefined' && typeof translation !=='undefined'"
+              )
+              equipment-card(
+                :cardLevel="cardLevel"
+                :stage="stage"
+                :id="equipment[cardLevel].id"
+                :headers="equipment[cardLevel].headers"
+                :items="equipment[cardLevel].items"
+                :translation="translation"
+                :image="image"
+                :imagePosition="equipment[cardLevel].img"
+              )
+            div(v-else)
+              .card-wrap.ma-1.pa-3.elevation-3.white--text.font-weight-bold.title(
+                :class="[cardLevel]"
+                v-text="translation.absent"
+              ) 
+            
 
-
-    //v-flex.green(sm12 md4) 111
-    //v-flex.blue(sm12 md4) 222
-    //v-flex.purple(sm12 md4) 333
-
-  .pre
-    //pre {{language}}
-    //pre {{translation}}
-    //pre {{equipment}}
-    //pre {{$route.query}}
-    //pre {{$route.hash}}
-    //pre {{$route.hash}}
 </template>
 
 <script>
-
-import { mapGetters } from 'vuex'; // , mapActions
-import EquipmentCard from './EquipmentCard.vue'; // , mapActions
+import EquipmentMixin from '../mixins/equipment';
+import EquipmentCard from './EquipmentCard.vue';
 
 export default {
   name: 'Equipment',
   components: { EquipmentCard },
-  data() {
-    return {
-      translation: {},
-      equipment: {},
-    };
-  },
+  mixins: [EquipmentMixin],
   created() {
     this.getEquipment();
     this.translate();
-  },
-  computed: {
-    ...mapGetters(['language']),
-    image() {
-      return `/img/${this.$route.name}.png`;
-    },
   },
   watch: {
     language() {
       this.translate();
     },
   },
-  methods: {
-    async getEquipment() {
-      if (typeof this.$route.name === 'undefined' || this.$route.name === '') {
-        return;
-      }
-      let equipment;
-      try {
-        equipment = await this.axios.get(`/data/equip/${this.$route.name}.json`);
-      } catch (e) {
-        this.equipment = {};
-      }
-      // equipment.data = this.tmpItemGenerator(equipment.data);// temporary
-      this.equipment = this.transformEquipment(equipment.data);
-    },
-    async translate() {
-      let translation;
-      try {
-        translation = await this.axios.get(
-          `/data/translation/${this.language.id}/equip.json`,
-        );
-      } catch (e) {
-        this.translation = {};
-      }
-
-      this.translation = translation.data;
-    },
-    /** generate data for table */
-    transformEquipment(data) {
-      this._.forEach(data, (equipment) => {
-        this._.forEach(['regular', 'rare', 'epic'], (cardLevel) => {
-          if (typeof equipment[cardLevel] !== 'undefined') {
-            // add table heders
-            // eslint-disable-next-line no-param-reassign
-            equipment[cardLevel].headers = [{
-              text: 'paramName',
-              // : 'right',
-              // sortable: false,
-              value: 'paramName',
-            }];
-
-
-            const firstPropKey = Object.keys(equipment[cardLevel].main)[0];
-            const firstProp = equipment[cardLevel].main[firstPropKey];
-            this._.forEach(firstProp, (value, key) => {
-              equipment[cardLevel].headers.push({
-                text: key + 1,
-                // align: 'left',
-                // sortable: false,
-                value: key,
-              });
-            });
-
-            // add table itims
-            // eslint-disable-next-line no-param-reassign
-            equipment[cardLevel].items = [];
-            this._.forEach(equipment[cardLevel].main, (values, property) => {
-              const item = { paramName: property };
-              this._.forEach(values, (value, id) => {
-                item[id] = value;
-              });
-            });
-            /* const pseudoHeader = { paramName: 'paramName' };
-            for (let i = 0; i <= 9; i += 1) {
-              pseudoHeader[i] = i + 1;
-            }
-            equipment[cardLevel].items.push(pseudoHeader); */
-
-            this._.forEach(equipment[cardLevel].main, (values, property) => {
-              const item = { paramName: property };
-              this._.forEach(values, (value, id) => {
-                item[id] = value;
-              });
-              equipment[cardLevel].items.push(item);
-            });
-            this._.forEach(equipment[cardLevel].auxillary, (values, property) => {
-              const item = { paramName: property };
-              this._.forEach(values, (value, id) => {
-                item[id] = value;
-              });
-              equipment[cardLevel].items.push(item);
-            });
-            // console.log(111, firstProp, stage, cardLevel, equipment[cardLevel].id,
-            // equipment[cardLevel].main, equipment[cardLevel].auxillary);
-            /* const maxLevel = 10;
-
-              this._.forEach(equipment[cardLevel].main, (value, property) => {
-                for (let i = 1; i < maxLevel; i += 1) {
-                    value.push(value[i-1]+ this._.random(0, Number(stage) + i));
-                }
-              });
-             this._.forEach(equipment[cardLevel].auxillary, (value, property) => {
-                for (let i = 1; i < maxLevel; i += 1) {
-                    value.push(value[i-1]+ this._.random(0, Number(stage) + i));
-                }
-              }); */
-          }
-        });
-      });
-      // console.log(111, data, _.random(20));
-
-      return data;
-    },
-    tmpItemGenerator(data) {
-      this._.forEach(data, (equipment, stage) => {
-        if (stage > 0) {
-          this._.forEach(['regular', 'rare', 'epic'], (cardLevel) => {
-            if (typeof equipment[cardLevel] !== 'undefined') {
-              const maxLevel = 10;
-
-              this._.forEach(equipment[cardLevel].main, (value) => {
-                for (let i = 1; i < maxLevel; i += 1) {
-                  value.push(value[i - 1] + this._.random(0, Number(stage) + i));
-                }
-              });
-              this._.forEach(equipment[cardLevel].auxillary, (value) => {
-                for (let i = 1; i < maxLevel; i += 1) {
-                  value.push(value[i - 1] + this._.random(0, Number(stage) + i));
-                }
-              });
-            }
-          });
-        }
-      });
-      // console.log(111, data, _.random(20));
-      return data;
-    },
-  },
 };
 </script>
 
 <style lang="less" scoped>
-.no-grow{
-  //flex: 0 0 auto;
-  // flex-basis: 452px;
+
+.stage{
+  height: 100%;
 }
 </style>

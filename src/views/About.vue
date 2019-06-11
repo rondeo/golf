@@ -1,36 +1,13 @@
 <template lang="pug">
-div
-  h1 This is an About page !!!!
-  pre {{$route.query}}
-  pre {{$route.hash}}
+v-container
+  h1.font-weight-bold.display-2 About 
+  .font-weight-bold.display-1.primary--text.mt-4
+    p SPA + PWA
+    p Vue.js + Vuetyfy + Vuex + Pug + Less + Webpack
 </template>
 
 <script>
 export default {
   name: 'About',
-  data() {
-    return { faqs: [] };
-  },
-  created() {
-    // console.log(11, this.$route, 22, this.$router);
-    this.init();
-  },
-  methods: {
-    async init() {
-      /* let faqs;
-
-      try {
-        faqs = await this.axios.get('/complex/faqs', {
-          params: { dataset: 'allFull', faq_section_id: 0 },
-        });
-      } catch (e) {
-        this.faqs = [];
-      }
-      this.faqs = faqs; */
-    },
-  },
 };
 </script>
-
-<style lang="less" scoped>
-</style>

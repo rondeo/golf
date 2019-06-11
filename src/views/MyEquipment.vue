@@ -12,7 +12,6 @@ export default {
     return { faqs: [] };
   },
   created() {
-    // console.log(11, this.$route, 22, this.$router);
     this.init();
   },
   methods: {

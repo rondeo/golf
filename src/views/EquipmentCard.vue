@@ -3,13 +3,8 @@
       table
         thead
           tr
-            th.white--text(
-              :rowspan="3"
-            )
-              .img(
-                :style="imgStyle"
-
-              )
+            th.white--text(:rowspan="3")
+              .img(:style="imgStyle")
             th.white--text(
               :colspan="headers.length-1"
               v-text=" translation[id]"
@@ -29,17 +24,9 @@
           tr(v-for="item in items")
             td(
               v-for="header in headers"
-              v-text="header.value!=='paramName'? item[header.value]: translation[item[header.value]]"
+              v-text="header.value!=='paramName'?item[header.value]:translation[item[header.value]]"
             )
-      //v-data-table(:headers='headers', :items='items' hide-actions hide-headers dark)
-        template(v-slot:items='props')
-          //td( v-text="props.item.paramName")
-          td.text-no-wrap(v-text="translation[props.item['paramName']]" :class="cardColor")
-          td(v-for="val in [0,1,2,3,4,5,6,7,8,9]" v-text="props.item[val]" :class="cardColor")
-
-          //td.text-xs-right {{ props.item.defensivePower }}
-
-
+    
 
 </template>
 
@@ -86,7 +73,6 @@ export default {
 
     };
   },
-
   computed: {
     imgStyle() {
       return {
@@ -117,10 +103,11 @@ export default {
 </script>
 
 <style lang="less">
-  @imgSize: 104px;    
-.card-wrap{  
+  @imgSize: 104px;
+.card-wrap{
   border-radius: 3px;
   width: 452px;
+  text-align: center;
   .icon{
     flex:0 0 80px;
   }

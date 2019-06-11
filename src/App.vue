@@ -2,15 +2,19 @@
 v-app
   v-toolbar.primary(app dark fixed)
     v-toolbar-side-icon.hidden-md-and-up(@click="drawer = !drawer")
-    v-toolbar-title(router to="/") {{translation.title}}
+    v-toolbar-title(v-text="translation.title")
     v-spacer
 
     v-toolbar-items(:key='i' v-for='(itemMenuMain, i) in menuMain')
       // main menu
-      v-btn(v-if="itemMenuMain.id !== 'equipment'" flat  :id="'top'+(i+1)"
-      :to="itemMenuMain.id==='home'?'/':itemMenuMain.id")
+      v-btn(
+        v-if="itemMenuMain.id !== 'equipment'"
+        :id="'top'+(i+1)"
+        :to="{name:itemMenuMain.id}"
+        flat
+      )
         v-icon(dark v-html='itemMenuMain.icon')
-        .ml-2.hidden-sm-and-down {{translation.menu[itemMenuMain.id]}}
+        .ml-2.hidden-sm-and-down(v-text="translation.menu[itemMenuMain.id]")
       // inner menu for equipment
       v-menu(v-else offset-y)
         v-btn(slot='activator' flat)
@@ -20,7 +24,7 @@ v-app
 
         v-list
             v-list-tile(:key='j' v-for='(itemMenuEquipment, j) in menuEquipment' router
-            :to='itemMenuEquipment.id' exact :id="'topInner'+(j+1)")
+            :to="{name:'equipment',params:{id:itemMenuEquipment.id}}"  exact :id="'topInner'+(j+1)")
                 v-layout.align-content-start(row nowrap  )
                   v-list-tile-action.mr-3
                     v-icon(v-html='itemMenuEquipment.icon')
@@ -50,7 +54,7 @@ v-app
   // left navigation for mobile devices
   v-navigation-drawer.hidden-md-and-up(v-model='drawer' fixed disable-resize-watcher app)
     v-list.pa-0(:key='i' v-for='(itemMenuMain, i) in menuMain')
-        v-list-tile(v-if="itemMenuMain.id !== 'equipment'" router :to='itemMenuMain.id' exact
+        v-list-tile(v-if="itemMenuMain.id !== 'equipment'" router :to='{name:itemMenuMain.id}' exact
         :id="'left'+(i+1)")
             v-list-tile-action
                 v-icon(v-html='itemMenuMain.icon')
@@ -61,7 +65,8 @@ v-app
                 v-list-tile-title(v-text='translation.menu[itemMenuMain.id]')
 
             v-list-tile(:key='j' v-for='(itemMenuEquipment, j) in menuEquipment' router
-            :to='itemMenuEquipment.id' exact
+            :to="{name:'equipment',params:{id:itemMenuEquipment.id}}"
+            exact
             :id="'leftInner'+(j+1)")
                 v-list-tile-action
                     v-icon.ml-2(v-html='itemMenuEquipment.icon')
@@ -72,46 +77,7 @@ v-app
   v-content
     //v-container
     router-view
-    v-layout.align-content-start(row nowrap)
-              v-flex.primary
-                .flag  primary
-              v-flex.secondary
-                .flag  secondary
-              v-flex.accent
-                .flag  accent
-              v-flex.error
-                .flag  error
-              v-flex.info
-                .flag  info
-              v-flex.success
-                .flag  success
-              v-flex.warning
-                .flag  warning
-              v-flex.warning.lighten-3
-                .flag  warning.lighten-3
-              v-flex.primary--text
-                .flag  primary--text
-              v-flex.secondary--text
-                .flag  secondary--text
-              v-flex.accent--text
-                .flag  accent--text
-              v-flex.error--text
-                .flag  error--text
-              v-flex.info--text
-                .flag  info--text
-              v-flex.success--text
-                .flag  success--text
-              v-flex.warning--text
-                .flag  warning--text
 
-
-    //.svg-new(style="width:400px;height:200px")
-       v-svg(src='ru')
-    //.svg-new(style="width:400px;height:200px")
-       v-svg(src='en')
-    //.svg-new(style="width:400px;height:200px")
-      pre {{language}}
-      pre {{languages}}
 
 </template>
 
@@ -127,9 +93,9 @@ export default {
       translation: { menu: {} },
       drawer: false,
       menuMain: [
-        // { id: 'home', icon: 'home' },
+        //{ id: 'home', icon: 'home' },
         { id: 'equipment', icon: 'view_quilt' },
-        { id: 'myEquipment', icon: 'favorite' },
+        //{ id: 'myEquipment', icon: 'favorite' },
         { id: 'contacts', icon: 'alternate_email' },
         { id: 'about', icon: 'info' },
       ],
@@ -147,6 +113,8 @@ export default {
   created() {
     if (localStorage.language) {
       this.changeLanguage(JSON.parse(localStorage.language));
+    } else {
+      this.translate();
     }
   },
   computed: {

@@ -7,36 +7,15 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/ball',
-      name: 'ball',
+      path: '/equipment/:id',
+      name: 'equipment',
       component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
     },
     {
-      path: '/driver',
-      name: 'driver',
-      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
+      path: '/equipment-sorted/:id',
+      name: 'equipmentSorted',
+      component: () => import(/* webpackChunkName: 'equipmentSorted' */ './views/EquipmentSorted.vue'),
     },
-    {
-      path: '/glove',
-      name: 'glove',
-      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
-    },
-    {
-      path: '/iron',
-      name: 'iron',
-      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
-    },
-    {
-      path: '/putter',
-      name: 'putter',
-      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
-    },
-    {
-      path: '/sandWedge',
-      name: 'sandWedge',
-      component: () => import(/* webpackChunkName: 'equipment' */ './views/Equipment.vue'),
-    },
-
     {
       path: '/myEquipment',
       name: 'myEquipment',
@@ -51,6 +30,10 @@ export default new Router({
       path: '/contacts',
       name: 'contacts',
       component: () => import(/* webpackChunkName: 'contacts' */ './views/Contacts.vue'),
+    },
+    {
+      path: '/',
+      redirect: '/equipment/ball',
     },
     {
       path: '/',
