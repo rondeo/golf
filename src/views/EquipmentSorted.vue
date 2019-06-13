@@ -1,11 +1,11 @@
 <template lang="pug">
 .equipment
   v-container
-    h1(v-if="typeof translation !== 'undefined'") Сводная таблица - {{translation[$route.params.id]}}
+    h1(v-if="typeof translation !== 'undefined'") {{translation.equipTable}} - {{translation[$route.params.id]}}
         v-btn.ml-5(
           :to="{name:'equipment',params:{id:$route.params.id}}"
           color="primary"
-        ) Карточки оборудования - {{translation[$route.params.id]}}
+        ) {{translation.equipCards}} - {{translation[$route.params.id]}}
     v-data-table.elevation-1(
       v-if="equipmentSorted.length>0" 
       :headers='headers', 

@@ -25,18 +25,28 @@ v-app
           .ml-2.hidden-sm-and-down(v-text="translation.menu[itemMenuMain.id]")
           v-icon.ml-2(dark) arrow_drop_down
         v-list
-            v-list-tile(
-              v-for="(itemMenuEquipment, j) in menuEquipment" 
-              :to="{name:'equipment',params:{id:itemMenuEquipment.id}}"  
-              :key="j"  
-              :id="'topInner'+(j+1)"
-              router exact 
-            )
-              v-layout.align-content-start(row nowrap  )
-                v-list-tile-action.mr-3
-                  v-icon(v-html="itemMenuEquipment.icon")
-                v-list-tile-content
-                  v-list-tile-title(v-text="translation.menu[itemMenuEquipment.id]")
+          v-list-tile(
+            v-for="(itemMenuEquipment, j) in menuEquipment" 
+            :to="{name:'equipment',params:{id:itemMenuEquipment.id}}"
+            :key="'topInner'+(j+1)"
+            router exact 
+          )
+            v-layout.align-content-start(row nowrap  )
+              v-list-tile-action.mr-3
+                v-icon(v-html="itemMenuEquipment.icon")
+              v-list-tile-content
+                v-list-tile-title {{translation.menu[itemMenuEquipment.id]}}({{translation.equipCards}})
+          v-list-tile(
+            v-for="(itemMenuEquipment, j) in menuEquipment" 
+            :to="{name:'equipmentSorted',params:{id:itemMenuEquipment.id}}"  
+            :key="'topInnerSorted'+(j+1)"  
+            router exact 
+          )
+            v-layout.align-content-start(row nowrap  )
+              v-list-tile-action.mr-3
+                v-icon(v-html="itemMenuEquipment.icon")
+              v-list-tile-content
+                v-list-tile-title {{translation.menu[itemMenuEquipment.id]}}({{translation.equipTable}})
 
     // language select
     v-toolbar-items
@@ -87,20 +97,28 @@ v-app
         :prepend-icon="itemMenuMain.icon" 
         value="true"
       )
-        v-list-tile(slot="activator")
-          v-list-tile-title(v-text="translation.menu[itemMenuMain.id]")
         v-list-tile(
-          v-for="(itemMenuEquipment, j) in menuEquipment"
+          v-for="(itemMenuEquipment, j) in menuEquipment" 
           :to="{name:'equipment',params:{id:itemMenuEquipment.id}}"
-          :id="'leftInner'+(j+1)"
-          :key="j"
-          router exact
+          :key="'topInner'+(j+1)"
+          router exact 
         )
-          v-list-tile-action
-            v-icon.ml-2(v-html="itemMenuEquipment.icon")
-          v-list-tile-content
-            v-list-tile-title.ml-2(v-text="translation.menu[itemMenuEquipment.id]")
-
+          v-layout.align-content-start(row nowrap  )
+            v-list-tile-action.mr-3
+              v-icon(v-html="itemMenuEquipment.icon")
+            v-list-tile-content
+              v-list-tile-title {{translation.menu[itemMenuEquipment.id]}}({{translation.equipCards}})
+        v-list-tile(
+          v-for="(itemMenuEquipment, j) in menuEquipment" 
+          :to="{name:'equipmentSorted',params:{id:itemMenuEquipment.id}}"  
+          :key="'topInnerSorted'+(j+1)"  
+          router exact 
+        )
+          v-layout.align-content-start(row nowrap  )
+            v-list-tile-action.mr-3
+              v-icon(v-html="itemMenuEquipment.icon")
+            v-list-tile-content
+              v-list-tile-title {{translation.menu[itemMenuEquipment.id]}}({{translation.equipTable}})
   v-content
     router-view
 

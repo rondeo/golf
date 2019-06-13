@@ -13,5 +13,7 @@
     "putter": "Putter",
     "glove": "Glove"
   },
+  "equipCards": "Equipment cards",
+  "equipTable": "Common table",
   "test": "Test"
 }

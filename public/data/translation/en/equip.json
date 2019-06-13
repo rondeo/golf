@@ -8,6 +8,8 @@
   "name": "Name",
   "cardLevel": "Type",
   "absent": "Equipment is absent",
+  "equipCards": "Equipment cards",
+  "equipTable": "Common table",
 
   "ball": "Ball",
   "driver": "Driver",

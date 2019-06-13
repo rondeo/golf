@@ -101,7 +101,13 @@ module.exports = (env, options) => {
     config.devtool = false;
     config.plugins.push(new PrerenderSPAPlugin({
       staticDir: path.resolve(__dirname, 'dist'),
-      routes: ['/', '/portfolio', '/rules', '/materials', '/faq', '/how', '/contacts'/*, '/sale'*/],
+      routes: [
+          '/',
+          '/equipment-sorted/ball',
+          '/equipment/ball',
+          '/contacts',
+          '/about',
+        ],
       renderer: new PuppeteerRenderer(),
 
       /* postProcess(renderedRoute) {
