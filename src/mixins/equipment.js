@@ -2,7 +2,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   data() {
-    return {
+    return {      
       translation: {},
       equipment: {},
     };
@@ -14,6 +14,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * get equipment from api
+     */
     async getEquipment() {
       if (typeof this.$route.params.id === 'undefined' || this.$route.params.id === '') {
         return;
@@ -26,6 +29,9 @@ export default {
       }
       this.equipment = this.transformEquipment(equipment.data);
     },
+     /**
+     * get translation from api
+     */
     async translate() {
       let translation;
       try {
@@ -37,10 +43,11 @@ export default {
       }
       this.translation = translation.data;
     },
-    /** generate data for table */
+    /** 
+     * prepere data for view in cards 
+     */
     transformEquipment(data) {
       this._.forEach(data, (equipment) => {
-
         this._.forEach(['regular', 'rare', 'epic'], (cardLevel) => {
           if (typeof equipment[cardLevel] !== 'undefined') {
             // add table heders

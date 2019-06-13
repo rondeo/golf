@@ -1,17 +1,19 @@
 import Vue from 'vue';
+require('babel-core/register');
+require('babel-polyfill');
+
 import './plugins/axios';
 import './plugins/lodash';
-import './plugins/vuetify';
+import './plugins/vuetify'; 
+
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import './registerServiceWorker';
 
-Vue.config.productionTip = false;
 
 new Vue({
-  router,
-  store,
-  render: h => h(App),
-  mounted: () => document.dispatchEvent(new Event("x-app-rendered")),
-}).$mount('#app');
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
+});

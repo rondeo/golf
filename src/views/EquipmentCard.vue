@@ -1,32 +1,31 @@
 <template lang="pug">
 .card-wrap.ma-1.pa-3.elevation-3.table(:class="[cardLevel]")
-      table
-        thead
-          tr
-            th.white--text(:rowspan="3")
-              .img(:style="imgStyle")
-            th.white--text(
-              :colspan="headers.length-1"
-              v-text=" translation[id]"
-            )
-          tr
-            th.white--text(
-              :colspan="headers.length-1"
-              v-text="`${translation.stage} ${stage} ${translation[cardLevel]} `"
-            )
-          tr
-            th.white--text(
-              v-for="header in headers"
-              v-if="header.value!=='paramName'"
-              v-text="header.value!=='paramName' ? header.text: ''"
-            )
-        tbody.blue-grey--text.text--lighten-5
-          tr(v-for="item in items")
-            td(
-              v-for="header in headers"
-              v-text="header.value!=='paramName'?item[header.value]:translation[item[header.value]]"
-            )
-    
+  table
+    thead
+      tr
+        th.white--text(:rowspan="3")
+          .img(:style="imgStyle")
+        th.white--text(
+          :colspan="headers.length-1"
+          v-text=" translation[id]"
+        )
+      tr
+        th.white--text(
+          :colspan="headers.length-1"
+          v-text="`${translation.stage} ${stage} ${translation[cardLevel]} `"
+        )
+      tr
+        th.white--text(
+          v-for="header in headers"
+          v-if="header.value!=='paramName'"
+          v-text="header.value!=='paramName' ? header.text: ''"
+        )
+    tbody.blue-grey--text.text--lighten-5
+      tr(v-for="item in items")
+        td(
+          v-for="header in headers"
+          v-text="header.value!=='paramName'?item[header.value]:translation[item[header.value]]"
+        )
 
 </template>
 
@@ -68,11 +67,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-
-    };
-  },
   computed: {
     imgStyle() {
       return {
@@ -81,29 +75,14 @@ export default {
         backgroundPositionY: `${-this.imagePosition.y}px`,
       };
     },
-
-    /*  cardColor() {
-      return {
-        regular: this.cardLevel === 'regular',
-        rare: this.cardLevel === 'rare',
-        epic: this.cardLevel === 'epic',
-      };
-    }, */
   },
-
-  /* watch: {
-    'translation.paramName'() {
-      let paramNameIndex= this._.findIndex(this.headers, { 'value': 'paramName'});
-      this.headers[paramNameIndex].text=this.translation.paramName;
-    },
-  }, */
 };
 
 
 </script>
 
 <style lang="less">
-  @imgSize: 104px;
+@imgSize: 104px;
 .card-wrap{
   border-radius: 3px;
   width: 452px;

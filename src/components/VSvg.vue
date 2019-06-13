@@ -4,7 +4,12 @@
 </template>
 
 <script>
+  /**
+   * svg images
+   * @example v-svg(src="en")
+   */
 export default {
+
   name: 'VSvg',
   props: {
     src: {
@@ -15,6 +20,7 @@ export default {
   data() {
     return {
       sprite: {
+        // russian flag
         ru: {
           viewBox: '0 0 60 30',
           html:
@@ -22,6 +28,7 @@ export default {
             + '<rect fill="#d52b1e" y="10" width="60" height="10"/>'
             + '<rect fill="#0039a6" y="20" width="60" height="10"/>',
         },
+        // britain flag
         en: {
           viewBox: '0 0 60 30',
           html:

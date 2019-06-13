@@ -17,11 +17,6 @@ export default new Router({
       component: () => import(/* webpackChunkName: 'equipmentSorted' */ './views/EquipmentSorted.vue'),
     },
     {
-      path: '/myEquipment',
-      name: 'myEquipment',
-      component: () => import(/* webpackChunkName: 'myEquipment' */ './views/MyEquipment.vue'),
-    },
-    {
       path: '/about',
       name: 'about',
       component: () => import(/* webpackChunkName: 'about' */ './views/About.vue'),
@@ -34,12 +29,7 @@ export default new Router({
     {
       path: '/',
       redirect: '/equipment/ball',
-    },
-    {
-      path: '/',
-      name: 'home',
-      component: () => import(/* webpackChunkName: 'home' */ './views/Home.vue'),
-    },
+    }, 
     {
       path: '/',
       redirect: '',
@@ -47,7 +37,7 @@ export default new Router({
     {
       name: 'err404',
       path: '*',
-      component: () => import(/* webpackChunkName: "error404" */ './views/Error404.vue'),
+      component: () => import(/* webpackChunkName: 'error404' */ './views/Error404.vue'),
     },
   ],
 });

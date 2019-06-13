@@ -2,9 +2,16 @@
 .equipment
   v-container
     h1(v-if="typeof translation !== 'undefined'") Сводная таблица - {{translation[$route.params.id]}}
-        v-btn.ml-5(color="primary" :to="{name:'equipment',params:{id:$route.params.id}}") Карточки оборудования - {{translation[$route.params.id]}}
-
-    v-data-table.elevation-1(v-if="equipmentSorted.length>0" :headers='headers', :items='equipmentSorted' :pagination.sync="pagination")
+        v-btn.ml-5(
+          :to="{name:'equipment',params:{id:$route.params.id}}"
+          color="primary"
+        ) Карточки оборудования - {{translation[$route.params.id]}}
+    v-data-table.elevation-1(
+      v-if="equipmentSorted.length>0" 
+      :headers='headers', 
+      :items='equipmentSorted' 
+      :pagination.sync="pagination"
+    )
       template(v-slot:items='props')
         td.text-xs-right {{ translation[props.item.name]}}
         td.text-xs-right {{ props.item.level }}
@@ -12,10 +19,6 @@
         td.text-xs-right {{ translation[props.item.cardLevel] }}
         template(v-for="property in properties")
           td.text-xs-right {{ props.item[property]||'-' }}
-        //td.text-xs-right {{ props.item.resistWind }}
-        //td.text-xs-right {{ props.item.id }}
-      
-    //pre {{translation}}
 
 </template>
 
@@ -44,8 +47,6 @@ export default {
     await this.translate();
     await this.updateHeaders();
     await this.updateEquipmentSorted();
-   
-
   },
   watch: {
     async language() {
@@ -54,70 +55,71 @@ export default {
     },
   },
   methods:{
+    /**
+     * generate headers for table
+     */
     updateHeaders(){
-
       let headers= [
-            { text: this.translation.name, value: 'name', align: 'right' },
-            { text: this.translation.level, value: 'level', align: 'right' },
-            { text: this.translation.stage, value: 'stage', align: 'right' },
-            { text: this.translation.cardLevel, value: 'cardLevel', align: 'right' },
-            ];
-            let properties=[];
+        { text: this.translation.name, value: 'name', align: 'right' },
+        { text: this.translation.level, value: 'level', align: 'right' },
+        { text: this.translation.stage, value: 'stage', align: 'right' },
+        { text: this.translation.cardLevel, value: 'cardLevel', align: 'right' },
+      ];
+      let properties=[];
       this._.forEach(this.equipment, (stageVal, stageKey) => {
-          this._.forEach(stageVal, (cardLevelVal, cardLevelKey) => {                     
-                this._.forEach(cardLevelVal.main, (values, property) => {
-                  if (!this._.includes(properties, property)) {
-                    properties.push(property);
-                  }              
-                });
-                this._.forEach(cardLevelVal.auxillary, (values, property) => {                
-                       if (!this._.includes(properties, property)) {
-                    properties.push(property);
-                  }
-                });                    
+        this._.forEach(stageVal, (cardLevelVal, cardLevelKey) => {                     
+          this._.forEach(cardLevelVal.main, (values, property) => {
+            if (!this._.includes(properties, property)) {
+              properties.push(property);
+            }              
           });
+          this._.forEach(cardLevelVal.auxillary, (values, property) => {                
+            if (!this._.includes(properties, property)) {
+              properties.push(property);
+            }
+          });                    
         });
+      });
     
-     this._.forEach(properties,  property => {
-                  headers.push({ text: this.translation[property], value: property, align: 'right' });         
-                });
-
+      this._.forEach(properties,  property => {
+        headers.push({ text: this.translation[property], value: property, align: 'right' });         
+      });
       this.properties= properties;
       this.headers= headers;
     },
+    /** 
+     * prepere data for view in cards 
+     */
     updateEquipmentSorted(){
-        const equipmentSorted = [];
-        this._.forEach(this.equipment, (stageVal, stageKey) => {
-          this._.forEach(stageVal, (cardLevelVal, cardLevelKey) => {
-            for (let level = 1; level <= 10; level += 1) {
-              if (stageKey > 0) {
-                const changedItem = {};
-                changedItem.id = cardLevelVal.id + level;
-                changedItem.stage = stageKey;
-                changedItem.cardLevel = cardLevelKey;
-                changedItem.level = level;
-                changedItem.name = cardLevelVal.id;
-
-                this._.forEach(cardLevelVal.main, (values, property) => {
-                  if (typeof values[level - 1] !== 'undefined') {
-                    changedItem[property] = values[level - 1];
-                  }
-                });
-                this._.forEach(cardLevelVal.auxillary, (values, property) => {
-                  if (typeof values[level - 1] !== 'undefined') {
-                    changedItem[property] = values[level - 1];
-                  }
-                });
-
-                equipmentSorted.push(changedItem);
-              }
+      const equipmentSorted = [];
+      this._.forEach(this.equipment, (stageVal, stageKey) => {
+        this._.forEach(stageVal, (cardLevelVal, cardLevelKey) => {
+          for (let level = 1; level <= 10; level += 1) {
+            if (stageKey > 0) {
+              const changedItem = {};
+              changedItem.id = cardLevelVal.id + level;
+              changedItem.stage = stageKey;
+              changedItem.cardLevel = cardLevelKey;
+              changedItem.level = level;
+              changedItem.name = cardLevelVal.id;
+              this._.forEach(cardLevelVal.main, (values, property) => {
+                if (typeof values[level - 1] !== 'undefined') {
+                  changedItem[property] = values[level - 1];
+                }
+              });
+              this._.forEach(cardLevelVal.auxillary, (values, property) => {
+                if (typeof values[level - 1] !== 'undefined') {
+                  changedItem[property] = values[level - 1];
+                }
+              });
+              equipmentSorted.push(changedItem);
             }
-          });
+          }
         });
-        this.equipmentSorted = equipmentSorted;  
+      });
+      this.equipmentSorted = equipmentSorted;  
     },
-  },
- 
+  }, 
 };
 </script>
 
